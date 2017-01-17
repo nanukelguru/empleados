@@ -1,19 +1,18 @@
-
-
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
-
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+<div ng-controller="CInicio">
+    <div class="row">
+        <div class="col-md-12" id="titulo"><h1>Bienvenido</h1></div>
+        <div class="colMenu col-md-4" ng-repeat="(keycat, cat) in vm" ng-if="cat.idmenupadre == 1">
+            <h2>{{cat.NombreMenu}}</h2>
+            <div class="panel panel-default" ng-repeat="(keysub, sub) in vm" ng-if="sub.idmenupadre==cat.idmenu">
+                <div class="panel-body">
+                    <a ng-href="<?=site_url()?>{{sub.url}}" title="{{sub.NombreMenu}}">{{sub.NombreMenu}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    app.controller("CInicio", function ($scope, $http) {
+        $scope.vm =<?= json_encode($params["vm"]) ?>;
+    });
+</script>

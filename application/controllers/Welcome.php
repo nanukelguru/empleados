@@ -20,6 +20,7 @@ class Welcome extends Padre {
 	 */
 	public function index()
 	{
-		$this->loadHTML("welcome_message");
+            $this->params["vm"]=$this->M_Seguridad->getMenu();
+            $this->loadHTML("welcome_message");
 	}
 }

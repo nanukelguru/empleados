@@ -45,7 +45,7 @@ class Padre extends CI_controller {
         echo '</pre>';
     }
 
-    private function addLessPath($clave){
+    private function addLessPath($clave) {
         if (isset($this->params[$clave])) {
             foreach ($this->params[$clave] as $key => $item) {
                 if (substr($item, -4) == "less") {
@@ -54,7 +54,7 @@ class Padre extends CI_controller {
             }
         }
     }
-    
+
     public function loadHTML($page, $header = "shared/header", $footer = "shared/footer", $imprimir = true) {
         if ($header == NULL)
             $header = "";
@@ -125,6 +125,24 @@ class Padre extends CI_controller {
             }
         }
         return $a;
+    }
+
+    protected function paginar($rows, $page, $sidx, $sord) {
+        if($page==NULL or $page=0)
+                $page=1;
+        //limitando
+        echo "aaa".$rows;
+        $this->db->limit(($page - 1) * $rows + 1, $rows);
+        if ($sidx != null && $sidx != '')
+            $this->db->order_by($sidx, $sord);
+        $res = $this->db->get()->result();
+        $resp = array(
+            "page" => $page,
+            "records" => 0,
+            "rows" => $res,
+            "total" => ceil($records / $rows),
+        );
+        print_r($resp);
     }
 
 }
